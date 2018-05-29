@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.madfooat</groupId>
+  <artifactId>cards-processors-api</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.packaging>jar</project.packaging>
+        
+        <!--Plugins versions-->
+        <plugin.maven-compiler.version>3.5</plugin.maven-compiler.version>
+        <plugin.spring-boot.version>2.0.2.RELEASE</plugin.spring-boot.version>
+        
+        <!-- Libs version -->
+        <java.version>1.8</java.version>
+		<cxf.version>3.2.4</cxf.version>  
+		<springboot.version>1.5.10.RELEASE</springboot.version>
+		<swagger.version>3.13.6</swagger.version>
+		<camel.version>2.21.1</camel.version>
+		<mysql-connector.version>5.1.38</mysql-connector.version>
+		<lombock.version>1.16.22</lombock.version>
+  </properties>
+  
+  <dependencies>
+       <dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+		    <version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.cxf</groupId>
+		  <artifactId>cxf-rt-rs-security-cors</artifactId>
+		  <version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.cxf</groupId>
+		  <artifactId>cxf-rt-rs-service-description</artifactId>
+		  <version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.camel</groupId>
+		  <artifactId>camel-core</artifactId>
+		  <version>${camel.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-spring-boot</artifactId>
+		    <version>${camel.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombock.version}</version>
+            <scope>provided</scope>
+        </dependency>
+   </dependencies>
+  
+  <build>
+        <plugins>
+        	<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.maven-compiler.version}</version>
+                <configuration>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        	
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${plugin.spring-boot.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
