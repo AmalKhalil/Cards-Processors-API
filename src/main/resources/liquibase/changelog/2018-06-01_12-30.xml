@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="amal.khalil" id="insert-merchants">
+    <insert tableName="user">
+        <column name="user_name" type="varchar(255)" value="Merchant1"/>
+        <column name="password" type="varchar(255)" value="password"/>
+        <column name="role" type="int" value="0"/>
+    </insert>
+    <insert tableName="user">
+        <column name="user_name" type="varchar(255)" value="Merchant2"/>
+        <column name="password" type="varchar(255)" value="password"/>
+        <column name="role" type="int" value="0"/>
+    </insert>
+    <insert tableName="user">
+        <column name="user_name" type="varchar(255)" value="Admin"/>
+        <column name="password" type="varchar(255)" value="password"/>
+        <column name="role" type="int" value="1"/>
+    </insert>
+</changeSet>
+   
+</databaseChangeLog>

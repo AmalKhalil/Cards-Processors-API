@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="amal.khalil (generated)" id="1527804836254-1">
+        <createTable tableName="batch">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="currency" type="VARCHAR(255)"/>
+            <column name="merchant" type="VARCHAR(255)"/>
+            <column name="nubmer_of_invalid_transaction" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nubmer_of_valid_transaction" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sum_of_invalid_transaction" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sum_of_valid_transaction" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="amal.khalil (generated)" id="1527804836254-2">
+        <createTable tableName="transaction">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_id" type="VARCHAR(255)"/>
+            <column name="amount" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="datetime(6)"/>
+            <column name="error" type="VARCHAR(255)"/>
+            <column name="processing_date" type="datetime(6)"/>
+            <column name="status" type="INT"/>
+            <column name="transaction_id" type="VARCHAR(255)"/>
+            <column name="batch_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="amal.khalil (generated)" id="1527804836254-3">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="role" type="INT"/>
+            <column name="user_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="amal.khalil (generated)" id="1527804836254-4">
+        <createIndex indexName="FK488qkru416qg1j5djdbr4honw" tableName="transaction">
+            <column name="batch_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="amal.khalil (generated)" id="1527804836254-5">
+        <addForeignKeyConstraint baseColumnNames="batch_id" baseTableName="transaction" constraintName="FK488qkru416qg1j5djdbr4honw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="batch"/>
+    </changeSet>
+</databaseChangeLog>
