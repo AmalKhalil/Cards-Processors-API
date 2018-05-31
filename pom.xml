@@ -22,6 +22,7 @@
 		<camel.version>2.21.1</camel.version>
 		<mysql-connector.version>5.1.38</mysql-connector.version>
 		<lombock.version>1.16.22</lombock.version>
+		<liquibase.version>3.6.1</liquibase.version>
   </properties>
   
   <dependencies>
@@ -51,6 +52,11 @@
 		    <version>${camel.version}</version>
 		</dependency>
 		<dependency>
+		  <groupId>org.apache.camel</groupId>
+		  <artifactId>camel-csv</artifactId>
+		  <version>${camel.version}</version>
+		</dependency>
+		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${springboot.version}</version>
@@ -66,6 +72,11 @@
             <version>${lombock.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- <dependency>
+		    <groupId>org.liquibase</groupId>
+		     <artifactId>liquibase-core</artifactId>
+		      <version>${liquibase.version}</version>
+		</dependency> -->
    </dependencies>
   
   <build>
