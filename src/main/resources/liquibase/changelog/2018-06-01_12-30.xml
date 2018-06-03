@@ -3,17 +3,17 @@
     <changeSet author="amal.khalil" id="insert-merchants">
     <insert tableName="user">
         <column name="user_name" type="varchar(255)" value="Merchant1"/>
-        <column name="password" type="varchar(255)" value="password"/>
+        <column name="password" type="varchar(255)" value="$2a$10$qmhKA9s.8cVhqeg1mnaEr.hVKGCwfXWalh09jYxiLSkQpLl6Y5dtK"/>
         <column name="role" type="int" value="0"/>
     </insert>
     <insert tableName="user">
         <column name="user_name" type="varchar(255)" value="Merchant2"/>
-        <column name="password" type="varchar(255)" value="password"/>
+        <column name="password" type="varchar(255)" value="$2a$10$qmhKA9s.8cVhqeg1mnaEr.hVKGCwfXWalh09jYxiLSkQpLl6Y5dtK"/>
         <column name="role" type="int" value="0"/>
     </insert>
     <insert tableName="user">
         <column name="user_name" type="varchar(255)" value="Admin"/>
-        <column name="password" type="varchar(255)" value="password"/>
+        <column name="password" type="varchar(255)" value="$2a$10$qmhKA9s.8cVhqeg1mnaEr.hVKGCwfXWalh09jYxiLSkQpLl6Y5dtK"/>
         <column name="role" type="int" value="1"/>
     </insert>
 </changeSet>

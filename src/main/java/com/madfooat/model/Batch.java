@@ -1,7 +1,9 @@
 package com.madfooat.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -55,5 +57,25 @@ public class Batch {
 
 	public void addInvalidAmount(double amount) {
 		this.sumOfInvalidTransaction = this.sumOfInvalidTransaction + amount;
+	}
+	
+	public List<Map<String, Object>> getOutputMap() {
+		
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+
+		Map<String, Object> row = new LinkedHashMap<>();
+		row.put("Status", "S");
+		row.put("Total", this.nubmerOfValidTransaction);
+		row.put("Sum", this.sumOfValidTransaction);
+
+		result.add(row);
+
+		row = new LinkedHashMap<>();
+		row.put("Status", "F");
+		row.put("Total", this.nubmerOfInvalidTransaction);
+		row.put("Sum", this.sumOfInvalidTransaction);
+		result.add(row);
+
+		return result;
 	}
 }

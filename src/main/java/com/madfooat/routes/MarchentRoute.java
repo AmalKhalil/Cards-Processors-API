@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.madfooat.exception.ApplicationException;
-import com.madfooat.services.TransactionService;
+import com.madfooat.services.BatchService;
 
 @Component
 public class MarchentRoute extends RouteBuilder {
@@ -27,7 +27,7 @@ public class MarchentRoute extends RouteBuilder {
     private String outDirectory;
 	
 	@Autowired
-	private TransactionService transactionService;
+	private BatchService batchService;
 	
 	@Override
 	public void configure() throws Exception {
@@ -57,7 +57,7 @@ public class MarchentRoute extends RouteBuilder {
 					
 					List<List<String>> records = message.getBody(List.class);
 					String merchant = (String) exchange.getProperty("Merchant");
-					List<Map<String, Object>> output = transactionService.processBatch(merchant, records);
+					List<Map<String, Object>> output = batchService.processBatch(merchant, records).getOutputMap();
 					exchange.getOut().setBody(output);
 					
 			}

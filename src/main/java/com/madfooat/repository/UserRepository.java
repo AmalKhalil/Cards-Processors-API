@@ -10,4 +10,6 @@ import com.madfooat.model.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findByUserNameAndRole(String userName, Role role);
+	
+	User findByUserName(String userName);
 }
