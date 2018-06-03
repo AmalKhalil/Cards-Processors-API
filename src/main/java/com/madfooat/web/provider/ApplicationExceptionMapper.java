@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.madfooat.exception.ApplicationException;
-import com.madfooat.web.dto.ResponseWrapper;
 
 @Provider
 public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationException> {
@@ -18,9 +17,7 @@ public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationEx
 	@Override
 	public Response toResponse(ApplicationException exception) {
 		LOGGER.error("ApplicationException", exception);
-		return Response.ok(
-						new ResponseWrapper<Void>(exception.getExceptionCode().getCode(),
-								exception.getMessage())).build();
+		return Response.ok(exception.getExceptionCode().getCode()+exception.getMessage()).build();
 	}
 
 }

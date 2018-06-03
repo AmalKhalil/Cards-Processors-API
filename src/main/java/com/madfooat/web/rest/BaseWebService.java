@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.madfooat.model.User;
 import com.madfooat.services.UserService;
-import com.madfooat.web.dto.ResponseWrapper;
 
 @CrossOriginResourceSharing(allowAllOrigins = true)
 public class BaseWebService {
@@ -25,7 +24,7 @@ public class BaseWebService {
 	}
 	
 	protected <T> Response buildSuccessResponse(T result){
-		return Response.ok(new ResponseWrapper<T>(result)).build();
+		return Response.ok(result).build();
 	}
 
 }
