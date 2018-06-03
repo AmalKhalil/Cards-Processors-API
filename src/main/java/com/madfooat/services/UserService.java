@@ -28,6 +28,7 @@ public class UserService {
 					ApplicationExceptionCode.INVALID_USERNAMR_PASSWORD);
 
 		}
+		user.setPassword(null);
 		return user;
 	}
 

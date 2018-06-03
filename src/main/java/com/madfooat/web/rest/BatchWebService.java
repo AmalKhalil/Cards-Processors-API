@@ -37,7 +37,7 @@ public class BatchWebService extends BaseWebService {
 
 		batchService.uploadBatchFile(this.getLoggedInUserName(), attachment.getContentDisposition().getFilename(),
 				attachment.getObject(InputStream.class));
-		return buildSuccessResponse("File Upload");
+		return buildSuccessResponse(Void.class);
 
 	}
 
