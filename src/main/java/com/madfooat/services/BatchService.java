@@ -79,7 +79,7 @@ public class BatchService {
 		Batch batch = batchBuilder.build(merchant, records);
 		batch.getTransactions().forEach(transaction -> accumulateTransaction(batch, transaction));
 		batchRepository.save(batch);
-		this.notifyMerchantBatchIsReady();
+		this.notifyMerchantBatchIsReady(merchant);
 		return batch;
 
 	}
@@ -123,8 +123,8 @@ public class BatchService {
 		}
 	}
 	
-	private void notifyMerchantBatchIsReady() {
-		template.convertAndSend("/merchant", "Ready");
+	private void notifyMerchantBatchIsReady(String merchant) {
+		template.convertAndSendToUser(merchant, "/reply", "Ready");
 	}
 
 }
