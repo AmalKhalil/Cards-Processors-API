@@ -1,7 +1,6 @@
 package com.madfooat.model.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.madfooat.model.User;

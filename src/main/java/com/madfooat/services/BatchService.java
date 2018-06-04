@@ -15,6 +15,7 @@ import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.madfooat.enums.Role;
@@ -44,6 +45,9 @@ public class BatchService {
 
 	@Autowired
 	private BatchBuilder batchBuilder;
+	
+	@Autowired
+	private SimpMessagingTemplate template;
 
 	private Validator validator;
 
@@ -75,6 +79,7 @@ public class BatchService {
 		Batch batch = batchBuilder.build(merchant, records);
 		batch.getTransactions().forEach(transaction -> accumulateTransaction(batch, transaction));
 		batchRepository.save(batch);
+		this.notifyMerchantBatchIsReady();
 		return batch;
 
 	}
@@ -116,6 +121,10 @@ public class BatchService {
 			transaction.setStatus(TransactionStatus.FAIL);
 			transaction.setError(violations.toString());
 		}
+	}
+	
+	private void notifyMerchantBatchIsReady() {
+		template.convertAndSend("/merchant", "Ready");
 	}
 
 }

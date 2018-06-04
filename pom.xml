@@ -12,13 +12,13 @@
         
         <!--Plugins versions-->
         <plugin.maven-compiler.version>3.5</plugin.maven-compiler.version>
-        <plugin.spring-boot.version>2.0.2.RELEASE</plugin.spring-boot.version>
+        <plugin.spring-boot.version>1.5.10.RELEASE</plugin.spring-boot.version>
         
         <!-- Libs version -->
         <java.version>1.8</java.version>
 		<cxf.version>3.2.4</cxf.version>  
 		<springboot.version>1.5.10.RELEASE</springboot.version>
-		<swagger.version>3.13.6</swagger.version>
+		<tomcat.websocket>8.5.27</tomcat.websocket>
 		<camel.version>2.21.1</camel.version>
 		<mysql-connector.version>5.1.38</mysql-connector.version>
 		<lombock.version>1.16.22</lombock.version>
@@ -32,7 +32,7 @@
 		    <groupId>org.apache.cxf</groupId>
 		    <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
 		    <version>${cxf.version}</version>
-		</dependency>
+       </dependency>
 		<dependency>
 		  <groupId>org.apache.cxf</groupId>
 		  <artifactId>cxf-rt-rs-security-cors</artifactId>
@@ -67,10 +67,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${springboot.version}</version>
-        </dependency>
+		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
             <version>${springboot.version}</version>
         </dependency>
 		<dependency>
@@ -132,6 +137,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${plugin.spring-boot.version}</version>
+                <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>repackage</goal>
+	                    </goals>
+	                </execution>
+            	</executions>
             </plugin>
             
              <plugin>
