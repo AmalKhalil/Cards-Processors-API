@@ -27,6 +27,11 @@ public class Application {
 						+ "External: \thttp://{}:{}\n----------------------------------------------------------",
 				env.getProperty("server.port"), InetAddress.getLocalHost().getHostAddress(),
 				env.getProperty("server.port"), env.getActiveProfiles());
+		
+		log.info("Active profiles:\n----------------------------------------------------------\n" +
+                "\t Profiles: \t\t{}\n----------------------------------------------------------",
+        env.getActiveProfiles());
+
 	}
 
 }

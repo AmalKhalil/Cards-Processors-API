@@ -20,7 +20,7 @@
 		<springboot.version>1.5.10.RELEASE</springboot.version>
 		<tomcat.websocket>8.5.27</tomcat.websocket>
 		<camel.version>2.21.1</camel.version>
-		<mysql-connector.version>5.1.38</mysql-connector.version>
+		<postgress-connector.version>9.1-901.jdbc4</postgress-connector.version>
 		<lombock.version>1.16.22</lombock.version>
 		<liquibase.version>3.6.1</liquibase.version>
 		<jackson.version>2.9.5</jackson.version>
@@ -79,10 +79,10 @@
             <version>${springboot.version}</version>
         </dependency>
 		<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector.version}</version>
-        </dependency>
+		  <groupId>postgresql</groupId>
+		  <artifactId>postgresql</artifactId>
+		  <version>${postgress-connector.version}</version>
+		</dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
