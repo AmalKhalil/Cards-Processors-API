@@ -63,7 +63,7 @@ public class BatchServiceTest {
     	batch2.setMerchant("M1");
     	
     	User user = new User();
-    	user.setUserName("Merchant1");
+    	user.setUserName("M1");
     	user.setRole(Role.Merchant);
     	
     	
@@ -80,15 +80,18 @@ public class BatchServiceTest {
         Mockito.when(batchRepository.findAll())
         .thenReturn(resultAll);
         
-        Mockito.when(userRepository.findByUserNameAndRole("Merchant1",Role.Merchant))
+        Mockito.when(userRepository.findByUserName("M1"))
+        .thenReturn(user);
+        
+        Mockito.when(userRepository.findByUserNameAndRole("M1",Role.Merchant))
         .thenReturn(user);
         
         Batch batch = new Batch();
-    	batch1.setMerchant("Merchant1");
+    	batch1.setMerchant("M1");
     	batch1.setCurrency("EGP");
     	
     	records = buildRecords();
-        Mockito.when(batchBuilder.build("Merchant1", records))
+        Mockito.when(batchBuilder.build("M1", records))
         .thenReturn(batch);
     }
     
@@ -121,7 +124,7 @@ public class BatchServiceTest {
     
     @Test
     public void whenProcessBatch_Success() {
-        Batch found = batchService.processBatch("Merchant1", records);
+        Batch found = batchService.processBatch("M1", records);
       
         assertThat(found)
         .isNotNull();
