@@ -1,5 +1,6 @@
 package com.madfooat.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,6 +14,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -33,6 +36,8 @@ import com.madfooat.web.dto.BatchDTO;
 
 @Service
 public class BatchService {
+
+	private static final Logger log = LoggerFactory.getLogger(BatchService.class);
 
 	@Value("${merchant.directory.in}")
 	private String inDirectory;
@@ -104,12 +109,19 @@ public class BatchService {
 	}
 
 	private void createBatchFile(String merchant, String fileName, InputStream inputStream) {
-		java.nio.file.Path path = Paths.get(inDirectory + "/" + merchant + "/" + fileName);
 		try {
-			Files.copy(inputStream, path);
+			createDirectoryIfNotExist(Paths.get(inDirectory + "/" + merchant));
+			Files.copy(inputStream, Paths.get(inDirectory + "/" + merchant + "/" + fileName));
 		} catch (IOException e) {
+			log.error(e.getMessage(), e);
 			throw new ApplicationException(e.getMessage(), ApplicationExceptionCode.SYSTEM_ERROR);
 		}
+	}
+
+	public void createDirectoryIfNotExist(java.nio.file.Path path) {
+		File directory = path.toFile();
+		if (! directory.exists())
+		    directory.mkdirs();
 	}
 
 	private void validateTransaction(Transaction transaction) {

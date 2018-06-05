@@ -1,6 +1,7 @@
 package com.madfooat.routes;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,8 @@ public class MarchentRoute extends RouteBuilder {
 					String merchant = (String) exchange.getProperty("Merchant");
 					List<Map<String, Object>> output = batchService.processBatch(merchant, records).getOutputMap();
 					exchange.getOut().setBody(output);
+					
+					batchService.createDirectoryIfNotExist(Paths.get(outDirectory));
 					
 			}
 		});
