@@ -56,4 +56,8 @@
     <changeSet author="amal.khalil (generated)" id="1527804836254-5">
         <addForeignKeyConstraint baseColumnNames="batch_id" baseTableName="transaction" constraintName="FK488qkru416qg1j5djdbr4honw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="batch"/>
     </changeSet>
+    <changeSet author="amal.khalil (generated)" id="1527804836254-6">
+    	<createSequence 
+            sequenceName="hibernate_sequence"/>
+    </changeSet>
 </databaseChangeLog>
