@@ -51,6 +51,8 @@ public class BatchServiceTest {
     @MockBean
 	private SimpMessagingTemplate template;
     
+    private List<List<String>> records;
+    
     @Before
     public void setUp() {
     	
@@ -60,6 +62,9 @@ public class BatchServiceTest {
     	Batch batch2 = new Batch();
     	batch2.setMerchant("M1");
     	
+    	User user = new User();
+    	user.setUserName("Merchant1");
+    	user.setRole(Role.Merchant);
     	
     	
     	List<Batch> resultAll = new ArrayList();
@@ -74,6 +79,17 @@ public class BatchServiceTest {
         
         Mockito.when(batchRepository.findAll())
         .thenReturn(resultAll);
+        
+        Mockito.when(userRepository.findByUserNameAndRole("Merchant1",Role.Merchant))
+        .thenReturn(user);
+        
+        Batch batch = new Batch();
+    	batch1.setMerchant("Merchant1");
+    	batch1.setCurrency("EGP");
+    	
+    	records = buildRecords();
+        Mockito.when(batchBuilder.build("Merchant1", records))
+        .thenReturn(batch);
     }
     
     @Test
@@ -102,4 +118,47 @@ public class BatchServiceTest {
          assertThat(found.size())
           .isEqualTo(2);
      }
+    
+    @Test
+    public void whenProcessBatch_Success() {
+        Batch found = batchService.processBatch("Merchant1", records);
+      
+        assertThat(found)
+        .isNotNull();
+        
+       
+        
+     }
+
+	private List<List<String>> buildRecords() {
+		List<List<String>> records = new ArrayList<List<String>>();
+        
+        List<String> record = new ArrayList<String>();
+        record.add("MARCHENT10ABCDEFGHIJ1234567890123451");
+        record.add("1000");
+        record.add("EGP");
+        record.add("2018.05.30-09:10:10");
+        record.add("1234567890");
+        
+        records.add(record);
+        
+        record = new ArrayList<String>();
+        record.add("MARCHENT10ABCDEFGHIJ1234567890123452");
+        record.add("3000");
+        record.add("EGP");
+        record.add("2018.05.30-09:10:10");
+        record.add("1234567890");
+        
+        records.add(record);
+        
+        record = new ArrayList<String>();
+        record.add("MARCHENT10ABCDEFGHIJ1234567890123453");
+        record.add("6000");
+        record.add("EGP");
+        record.add("2018.05.30-09:10:10");
+        record.add("1234567890");
+        
+        records.add(record);
+		return records;
+	}
 }
