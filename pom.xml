@@ -12,16 +12,20 @@
         
         <!--Plugins versions-->
         <plugin.maven-compiler.version>3.5</plugin.maven-compiler.version>
-        <plugin.spring-boot.version>2.0.2.RELEASE</plugin.spring-boot.version>
+        <plugin.spring-boot.version>1.5.10.RELEASE</plugin.spring-boot.version>
         
         <!-- Libs version -->
         <java.version>1.8</java.version>
 		<cxf.version>3.2.4</cxf.version>  
 		<springboot.version>1.5.10.RELEASE</springboot.version>
-		<swagger.version>3.13.6</swagger.version>
+		<tomcat.websocket>8.5.27</tomcat.websocket>
 		<camel.version>2.21.1</camel.version>
-		<mysql-connector.version>5.1.38</mysql-connector.version>
+		<postgress-connector.version>9.1-901.jdbc4</postgress-connector.version>
 		<lombock.version>1.16.22</lombock.version>
+		<liquibase.version>3.6.1</liquibase.version>
+		<jackson.version>2.9.5</jackson.version>
+		<mapstruct.version>1.2.0.Final</mapstruct.version>
+		<h2database.version>1.4.197</h2database.version>
   </properties>
   
   <dependencies>
@@ -29,7 +33,7 @@
 		    <groupId>org.apache.cxf</groupId>
 		    <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
 		    <version>${cxf.version}</version>
-		</dependency>
+       </dependency>
 		<dependency>
 		  <groupId>org.apache.cxf</groupId>
 		  <artifactId>cxf-rt-rs-security-cors</artifactId>
@@ -40,6 +44,11 @@
 		  <artifactId>cxf-rt-rs-service-description</artifactId>
 		  <version>${cxf.version}</version>
 		</dependency>
+		 <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 		<dependency>
 		  <groupId>org.apache.camel</groupId>
 		  <artifactId>camel-core</artifactId>
@@ -51,21 +60,70 @@
 		    <version>${camel.version}</version>
 		</dependency>
 		<dependency>
+		  <groupId>org.apache.camel</groupId>
+		  <artifactId>camel-csv</artifactId>
+		  <version>${camel.version}</version>
+		</dependency>
+		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${springboot.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>${springboot.version}</version>
         </dependency>
 		<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector.version}</version>
-        </dependency>
+		  <groupId>postgresql</groupId>
+		  <artifactId>postgresql</artifactId>
+		  <version>${postgress-connector.version}</version>
+		</dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombock.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+		    <groupId>org.liquibase</groupId>
+		     <artifactId>liquibase-core</artifactId>
+		      <version>${liquibase.version}</version>
+		</dependency> 
+		
+		<dependency>
+		    <groupId>org.liquibase</groupId>
+		    <artifactId>liquibase-maven-plugin</artifactId>
+		    <version>${liquibase.version}</version>
+		</dependency> 
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct-jdk8</artifactId>
+		    <version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct-processor</artifactId>
+		    <version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <scope>test</scope>
+		    <version>${springboot.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <scope>test</scope>
+		    <version>${h2database.version}</version>
+		</dependency>
+		
    </dependencies>
   
   <build>
@@ -78,7 +136,15 @@
                     <compilerVersion>${java.version}</compilerVersion>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                     <annotationProcessorPaths>
+	                    <path>
+	                        <groupId>org.mapstruct</groupId>
+	                        <artifactId>mapstruct-processor</artifactId>
+	                        <version>${mapstruct.version}</version>
+	                    </path>
+	                </annotationProcessorPaths>
                 </configuration>
             </plugin>
         	
@@ -86,7 +152,23 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${plugin.spring-boot.version}</version>
+                <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>repackage</goal>
+	                    </goals>
+	                </execution>
+            	</executions>
             </plugin>
+            
+             <plugin>
+		        <groupId>org.liquibase</groupId>
+		        <artifactId>liquibase-maven-plugin</artifactId>
+		        <version>${liquibase.version}</version>
+		        <configuration>                  
+		            <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+		        </configuration>                
+		    </plugin> 
         </plugins>
     </build>
 </project>
