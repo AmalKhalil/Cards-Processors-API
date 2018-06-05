@@ -39,7 +39,7 @@
         </createTable>
     </changeSet>
     <changeSet author="amal.khalil (generated)" id="1527804836254-3">
-        <createTable tableName="user">
+        <createTable tableName="cpuser">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
