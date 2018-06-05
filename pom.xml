@@ -136,6 +136,7 @@
                     <compilerVersion>${java.version}</compilerVersion>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
                     <encoding>${project.build.sourceEncoding}</encoding>
                      <annotationProcessorPaths>
 	                    <path>
