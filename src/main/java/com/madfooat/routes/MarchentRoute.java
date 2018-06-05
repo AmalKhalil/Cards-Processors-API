@@ -1,7 +1,9 @@
 package com.madfooat.routes;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +45,8 @@ public class MarchentRoute extends RouteBuilder {
 			public void process(Exchange exchange) throws Exception {
 					Message message = exchange.getIn();
 					File file = message.getBody(File.class);
-					exchange.setProperty("Merchant", file.getParentFile().getName());
+					String merchant = file.getParentFile().getName();
+					exchange.setProperty("Merchant", merchant);
 			}
 		});
 		//Parse CSV Input
@@ -61,14 +64,24 @@ public class MarchentRoute extends RouteBuilder {
 					List<Map<String, Object>> output = batchService.processBatch(merchant, records).getOutputMap();
 					exchange.getOut().setBody(output);
 					
-					batchService.createDirectoryIfNotExist(Paths.get(outDirectory));
-					
 			}
 		});
 		
 		//Write CSV Output
 		defination.marshal().csv();
+		
 		defination.to("file:"+outDirectory);
+		
+		defination.process(new Processor() {
+
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				String merchant = (String) exchange.getProperty("Merchant");
+				batchService.createDirectoryIfNotExist(Paths.get(outDirectory + File.separator + merchant));
+				Files.move(Paths.get(outDirectory + File.separator + exchange.getIn().getMessageId()), 
+						Paths.get(outDirectory + File.separator + merchant+ File.separator + exchange.getIn().getMessageId()));
+			}
+		});
 	}
 
 }

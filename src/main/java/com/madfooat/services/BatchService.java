@@ -110,8 +110,8 @@ public class BatchService {
 
 	private void createBatchFile(String merchant, String fileName, InputStream inputStream) {
 		try {
-			createDirectoryIfNotExist(Paths.get(inDirectory + "/" + merchant));
-			Files.copy(inputStream, Paths.get(inDirectory + "/" + merchant + "/" + fileName));
+			createDirectoryIfNotExist(Paths.get(inDirectory + File.separator + merchant));
+			Files.copy(inputStream, Paths.get(inDirectory + File.separator + merchant + File.separator + fileName));
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 			throw new ApplicationException(e.getMessage(), ApplicationExceptionCode.SYSTEM_ERROR);
